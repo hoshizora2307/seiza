@@ -1,0 +1,133 @@
+:root {
+    --bg-color: #0c0f1a;
+    --card-color: #1c2033;
+    --text-color: #e0e0e0;
+    --accent-color: #f0c43d;
+    --font-jp: 'Noto Sans JP', sans-serif;
+    --font-title: 'Kiwi Maru', serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-jp);
+}
+
+.container {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-family: var(--font-title);
+    color: var(--accent-color);
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.constellation-card {
+    background-color: var(--card-color);
+    padding: 20px 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    border: 1px solid #333854;
+}
+
+.constellation-card:hover {
+    transform: translateY(-5px);
+    background-color: #2a2f4d;
+}
+
+/* モーダル（ポップアップ）のスタイル */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.modal-overlay:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--card-color);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+    transform: scale(1);
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-content h2 {
+    font-family: var(--font-title);
+    color: var(--accent-color);
+    margin-bottom: 5px;
+    font-size: 1.8rem;
+}
+
+.en-name {
+    font-style: italic;
+    color: #a0a0a0;
+    margin-bottom: 20px;
+}
+
+.modal-details p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.hidden {
+    display: none;
+}
