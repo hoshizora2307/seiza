@@ -60,6 +60,22 @@ header h1 {
     background-color: #2a2f4d;
 }
 
+/* ▼▼▼ この部分を追加 ▼▼▼ */
+.app-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333854;
+}
+
+.app-footer p {
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    line-height: 1.7;
+}
+/* ▲▲▲ ここまで追加 ▲▲▲ */
+
+
 /* モーダル（ポップアップ）のスタイル */
 .modal-overlay {
     position: fixed;
