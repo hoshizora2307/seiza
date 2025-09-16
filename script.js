@@ -1,6 +1,35 @@
+// --- オープニング画面の制御 ---
+window.addEventListener('load', () => {
+    const splashScreen = document.getElementById('splash-screen');
+    const splashTitle = document.querySelector('.splash-title');
+    const credits = document.querySelector('.credits');
+
+    // 1. タイトルとクレジットを順番に表示
+    setTimeout(() => {
+        splashTitle.classList.add('visible');
+    }, 500); // 0.5秒後
+
+    setTimeout(() => {
+        credits.classList.add('visible');
+    }, 1200); // 1.2秒後
+
+    // 2. スプラッシュ画面全体をフェードアウト
+    setTimeout(() => {
+        splashScreen.classList.add('hidden');
+    }, 4000); // 4秒後
+
+    // 3. フェードアウト後に要素を完全に消す（アクセシビリティのため）
+    setTimeout(() => {
+        if (splashScreen) {
+            splashScreen.style.display = 'none';
+        }
+    }, 5000); // 5秒後
+});
+
+
+// --- 星座図鑑アプリ本体の制御 ---
 document.addEventListener('DOMContentLoaded', () => {
     // 星座データ (サンプル)
-    // 実際に88星座分を作成する場合は、この配列にデータを追加していきます。
     const constellations = [
         {
             name_jp: "オリオン座",
@@ -67,6 +96,8 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('hidden');
     };
 
+
+
     // モーダルを閉じる
     const closeModal = () => {
         modal.classList.add('hidden');
@@ -82,5 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 初期化
-    createConstellationCards();
+    if (grid) {
+        createConstellationCards();
+    }
 });
