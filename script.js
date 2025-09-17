@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 春の星座
         { name_jp: "おおぐま座", name_en: "Ursa Major", description: "北斗七星を含む大きな星座。一年中北の空に見えます。", famous_star: "ドゥーベ, メラク", best_season: "春" },
         { name_jp: "こぐま座", name_en: "Ursa Minor", description: "北極星ポラリスを含む星座。おおぐま座の近くにあります。", famous_star: "ポラリス", best_season: "春" },
-        { name_jp: "うしかい座", name_en: "Boötes", description: "春の夜空に輝くオレンジ色のアークトゥルスが目印です。", famous_star: "アークトゥルス", best_season: "春" },
+        { name_jp: "うしかい座", name_en: "Boötes", description: "春の夜空に輝くオレンジ色のアルクトゥルスが目印です。アルクトゥルスは4番目に明るい恒星です。「春の大三角」の一角。", famous_star: "アークトゥルス", best_season: "春" },
         // ... (以下、他の星座データも同様にimage_urlを削除) ...
         // (注: データが長いため省略しますが、全88星座分のデータは残してください)
         { name_jp: "はちぶんぎ座", name_en: "Octans", description: "天の南極を含む星座ですが、明るい星はありません。", famous_star: "ν星", best_season: "南天" },
