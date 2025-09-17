@@ -35,18 +35,9 @@ body {
     background-repeat: repeat;
 }
 
-#stars {
-    background-size: 300px 300px;
-    animation: zoom 50s alternate infinite;
-}
-#stars2 {
-    background-size: 500px 500px;
-    animation: zoom 70s alternate-reverse infinite;
-}
-#stars3 {
-    background-size: 700px 700px;
-    animation: zoom 90s alternate infinite;
-}
+#stars { background-size: 300px 300px; animation: zoom 50s alternate infinite; }
+#stars2 { background-size: 500px 500px; animation: zoom 70s alternate-reverse infinite; }
+#stars3 { background-size: 700px 700px; animation: zoom 90s alternate infinite; }
 
 @keyframes zoom {
     from { transform: scale(1); }
@@ -95,25 +86,14 @@ body {
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.splash-content h1.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
+.splash-content h1.visible { opacity: 1; transform: translateY(0); }
 #splash-screen .credits.visible p:nth-child(1) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
 #splash-screen .credits.visible p:nth-child(2) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
 #splash-screen .credits.visible p:nth-child(3) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
 
 /* メインコンテンツ */
-#app-container {
-    opacity: 1;
-    transition: opacity 1s ease-in;
-}
-
-#app-container.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
+#app-container { opacity: 1; transition: opacity 1s ease-in; }
+#app-container.hidden { opacity: 0; pointer-events: none; }
 
 header {
     text-align: center;
@@ -135,9 +115,7 @@ header h1 {
     text-shadow: 0 0 8px rgba(160, 192, 255, 0.6);
 }
 
-header p {
-    color: #a0a0a0;
-}
+header p { color: #a0a0a0; }
 
 main {
     padding: 20px;
@@ -160,14 +138,24 @@ main {
     font-weight: 500;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    
+    /* ▼▼▼ アニメーション用のスタイルを追加 ▼▼▼ */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ▼▼▼ カードが表示されたときのスタイルを追加 ▼▼▼ */
+.constellation-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .constellation-card:hover {
     background-color: rgba(160, 192, 255, 0.2);
-    transform: translateY(-5px) scale(1.05);
+    transform: translateY(-5px) scale(1.05); /* ホバー時の動きを元のままに */
     box-shadow: 0 0 20px rgba(160, 192, 255, 0.5);
 }
 
@@ -204,10 +192,7 @@ main {
     -webkit-backdrop-filter: blur(8px);
 }
 
-.modal-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
+.modal-overlay.hidden { opacity: 0; visibility: hidden; }
 
 .modal-content {
     background-color: var(--bg-color);
@@ -224,9 +209,7 @@ main {
     transition: transform 0.3s;
 }
 
-.modal-overlay:not(.hidden) .modal-content {
-    transform: scale(1);
-}
+.modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
 
 .close-button {
     position: absolute;
@@ -239,44 +222,13 @@ main {
     cursor: pointer;
 }
 
-.modal-body {
-    display: flex;
-    gap: 30px;
-}
+.modal-body { display: flex; gap: 30px; }
+.constellation-image { width: 300px; height: 300px; object-fit: cover; border-radius: 10px; border: 1px solid var(--highlight-color); }
+.modal-info h2 { font-family: var(--font-title); color: var(--accent-color); font-size: 2.2rem; }
+.en-name { font-style: italic; color: #a0a0a0; margin-bottom: 20px; display: block; }
+.modal-details p { line-height: 1.8; margin-bottom: 10px; }
 
-.constellation-image {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid var(--highlight-color);
-}
-
-.modal-info h2 {
-    font-family: var(--font-title);
-    color: var(--accent-color);
-    font-size: 2.2rem;
-}
-
-.en-name {
-    font-style: italic;
-    color: #a0a0a0;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.modal-details p {
-    line-height: 1.8;
-    margin-bottom: 10px;
-}
-
-/* スマホ用レスポンシブ */
 @media (max-width: 768px) {
-    .modal-body {
-        flex-direction: column;
-    }
-    .constellation-image {
-        width: 100%;
-        height: auto;
-    }
+    .modal-body { flex-direction: column; }
+    .constellation-image { width: 100%; height: auto; }
 }
