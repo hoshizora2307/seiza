@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     // ▼▼▼ あなたのUnsplash APIキー(Access Key)をここに貼り付けてください ▼▼▼
     // ===================================================================
-    const UNSPLASH_ACCESS_KEY = 'YOUR_ACCESS_KEY'; 
+    const UNSPLASH_ACCESS_KEY = 'ssgMREBa8nxF6Dty-WDZUAzjP8Zn1BTOqpFLa4F57i8Y'; 
     // ===================================================================
     //
     
