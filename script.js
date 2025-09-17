@@ -1,13 +1,21 @@
 // --- オープニング画面の制御 ---
 window.addEventListener('load', () => {
     const splashScreen = document.getElementById('splash-screen');
-    const splashTitle = document.querySelector('.splash-title');
-    const credits = document.querySelector G('.credits');
+    const splashTitle = document.querySelector('.splash-content h1');
+    const credits = document.querySelector('#splash-screen .credits');
+    const appContainer = document.getElementById('app-container');
 
     setTimeout(() => { splashTitle.classList.add('visible'); }, 500);
     setTimeout(() => { credits.classList.add('visible'); }, 1200);
     setTimeout(() => { splashScreen.classList.add('hidden'); }, 4000);
-    setTimeout(() => { if (splashScreen) { splashScreen.style.display = 'none'; } }, 5000);
+    setTimeout(() => {
+        if (splashScreen) { 
+            splashScreen.style.display = 'none'; 
+        }
+        if (appContainer) {
+            appContainer.classList.remove('hidden');
+        }
+    }, 5000);
 });
 
 // --- 星座図鑑アプリ本体の制御 ---
@@ -16,14 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     // ▼▼▼ あなたのUnsplash APIキー(Access Key)をここに貼り付けてください ▼▼▼
     // ===================================================================
-    const UNSPLASH_ACCESS_KEY = 'ssgMREBa8nxF6Dty-WDZUAzjP8Zn1BTOqpFLa4F57i8Y'; 
+    const UNSPLASH_ACCESS_KEY = 'YOUR_ACCESS_KEY'; 
     // ===================================================================
     //
     
-
-    // ▼▼▼ 全88星座のデータ ▼▼▼
+    // 全88星座のデータ
     const constellations = [
-        // 春の星座
         { name_jp: "おおぐま座", name_en: "Ursa Major", description: "北斗七星を含む大きな星座。一年中北の空に見えます。", famous_star: "ドゥーベ, メラク", best_season: "春" },
         { name_jp: "こぐま座", name_en: "Ursa Minor", description: "北極星ポラリスを含む星座。おおぐま座の近くにあります。", famous_star: "ポラリス", best_season: "春" },
         { name_jp: "うしかい座", name_en: "Boötes", description: "春の夜空に輝くオレンジ色のアークトゥルスが目印です。", famous_star: "アークトゥルス", best_season: "春" },
@@ -38,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name_jp: "ろくぶんぎ座", name_en: "Sextans", description: "天文学者ヘヴェリウスによって設定された比較的新しい星座です。", famous_star: "α星", best_season: "春" },
         { name_jp: "こじし座", name_en: "Leo Minor", description: "しし座の足元に位置する小さな星座です。", famous_star: "プラエキプア", best_season: "春" },
         { name_jp: "やまねこ座", name_en: "Lynx", description: "おおぐま座とふたご座の間に位置する星座です。", famous_star: "α星", best_season: "春" },
-        // 夏の星座
         { name_jp: "さそり座", name_en: "Scorpius", description: "夏の南の空に輝くS字カーブが美しい星座です。", famous_star: "アンタレス", best_season: "夏" },
         { name_jp: "いて座", name_en: "Sagittarius", description: "天の川が最も濃く見える方向にある星座。南斗六星が有名です。", famous_star: "カウス・アウストラリス", best_season: "夏" },
         { name_jp: "こと座", name_en: "Lyra", description: "夏の大三角のひとつ、青白いベガが輝く小さな星座です。", famous_star: "ベガ", best_season: "夏" },
@@ -54,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name_jp: "みなみのかんむり座", name_en: "Corona Australis", description: "いて座の足元に位置する小さな星座です。", famous_star: "メリディアナ", best_season: "夏" },
         { name_jp: "こぎつね座", name_en: "Vulpecula", description: "亜鈴状星雲(M27)があることで知られています。", famous_star: "アンサー", best_season: "夏" },
         { name_jp: "たて座", name_en: "Scutum", description: "天の川の中に位置する小さな星座です。", famous_star: "α星", best_season: "夏" },
-        // 秋の星座
         { name_jp: "アンドロメダ座", name_en: "Andromeda", description: "アンドロメダ銀河(M31)があることで非常に有名な星座です。", famous_star: "アルフェラッツ", best_season: "秋" },
         { name_jp: "カシオペヤ座", name_en: "Cassiopeia", description: "北の空に「W」や「M」の形に並ぶ、見つけやすい星座です。", famous_star: "シェダル", best_season: "秋" },
         { name_jp: "ペガスス座", name_en: "Pegasus", description: "秋の四辺形を構成する大きな星座です。", famous_star: "マルカブ", best_season: "秋" },
@@ -69,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name_jp: "ちょうこくしつ座", name_en: "Sculptor", description: "南の空の低い位置に見える星座です。", famous_star: "α星", best_season: "秋" },
         { name_jp: "くじら座", name_en: "Cetus", description: "変光星ミラがあることで有名な、大きな星座です。", famous_star: "ミラ", best_season: "秋" },
         { name_jp: "みなみのうお座", name_en: "Piscis Austrinus", description: "秋の南の空に輝く一等星フォーマルハウトが目印です。", famous_star: "フォーマルハウト", best_season: "秋" },
-        // 冬の星座
         { name_jp: "オリオン座", name_en: "Orion", description: "冬の夜空で最も目立つ星座。三つ星やオリオン大星雲が有名。", famous_star: "ベテルギウス, リゲル", best_season: "冬" },
         { name_jp: "おおいぬ座", name_en: "Canis Major", description: "全天で最も明るい恒星シリウスを持つ星座です。", famous_star: "シリウス", best_season: "冬" },
         { name_jp: "こいぬ座", name_en: "Canis Minor", description: "冬の大三角のひとつ、プロキオンが輝く小さな星座です。", famous_star: "プロキオン", best_season: "冬" },
@@ -83,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { name_jp: "ちょうこくぐ座", name_en: "Caelum", description: "エリダヌス座とはと座の間に位置する小さな星座です。", famous_star: "α星", best_season: "冬" },
         { name_jp: "ろ座", name_en: "Fornax", description: "エリダヌス座の中にある小さな星座です。", famous_star: "フォルナキス", best_season: "冬" },
         { name_jp: "とも座", name_en: "Puppis", description: "かつて存在したアルゴ船座の一部です。", famous_star: "ナオス", best_season: "冬" },
-        // 南天の星座
         { name_jp: "りゅうこつ座", name_en: "Carina", description: "シリウスに次いで明るいカノープスを持つ、南天の星座です。", famous_star: "カノープス", best_season: "南天" },
         { name_jp: "ほ座", name_en: "Vela", description: "かつてのアルゴ船座の一部で、帆の部分にあたります。", famous_star: "γ星", best_season: "南天" },
         { name_jp: "らしんばん座", name_en: "Pyxis", description: "かつてのアルゴ船座の近くに設定された小さな星座です。", famous_star: "α星", best_season: "南天" },
@@ -138,21 +140,17 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const showModal = async (constellation) => {
-        // 先にテキスト情報を表示
         document.getElementById('modal-name-jp').textContent = constellation.name_jp;
         document.getElementById('modal-name-en').textContent = constellation.name_en;
         document.getElementById('modal-season').textContent = constellation.best_season;
         document.getElementById('modal-star').textContent = constellation.famous_star;
         document.getElementById('modal-description').textContent = constellation.description;
 
-        // 画像を読み込み中に一時的な表示
         modalImage.src = 'https://placehold.co/400x300/0c0f1a/e0e0e0?text=Loading...';
         modalImage.alt = '画像を読み込んでいます...';
         
-        // モーダルを表示
         modal.classList.remove('hidden');
 
-        // Unsplash APIに星座の写真を問い合わせ
         try {
             if (!UNSPLASH_ACCESS_KEY || UNSPLASH_ACCESS_KEY === 'YOUR_ACCESS_KEY') {
                 throw new Error('Unsplash Access Key is not set.');
@@ -161,17 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (data.results && data.results.length > 0) {
-                // 写真が見つかった場合
                 modalImage.src = data.results[0].urls.regular;
                 modalImage.alt = constellation.name_jp + 'の写真';
             } else {
-                // 写真が見つからなかった場合
                 modalImage.src = `https://placehold.co/400x300/0c0f1a/e0e0e0?text=${constellation.name_en}`;
                 modalImage.alt = constellation.name_jp + 'の写真が見つかりませんでした';
             }
         } catch (error) {
             console.error('Error fetching image from Unsplash:', error);
-            // APIキーがない場合やエラーの場合も、代替画像を表示
             modalImage.src = `https://placehold.co/400x300/0c0f1a/e0e0e0?text=Image+Error`;
             modalImage.alt = '画像の読み込みに失敗しました';
         }
