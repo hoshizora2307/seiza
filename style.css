@@ -1,298 +1,282 @@
-/* --- 全体的なスタイル --- */
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #e0e0e0;
-    background-color: #0c0f1a; /* ベースの暗い宇宙色 */
-    overflow-x: hidden; /* 横方向のスクロールバーを非表示に */
-    background-image: linear-gradient(to bottom, #0c0f1a, #2a0a3a, #0c0f1a); /* 深い宇宙グラデーション */
+:root {
+    --bg-color: #0c0f1a;
+    --card-color: rgba(28, 32, 51, 0.7);
+    --text-color: #e0e0e0;
+    --accent-color: #f0c43d;
+    --highlight-color: #a0c0ff;
+    --font-jp: 'Noto Sans JP', sans-serif;
+    --font-title: 'Kiwi Maru', serif;
 }
 
-/* --- 動的な星空の背景 --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-jp);
+    overflow-x: hidden;
+}
+
+/* 動的な星空の背景 */
 #stars, #stars2, #stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+    background-image: radial-gradient(1px 1px at 50px 50px, white, transparent),
+                      radial-gradient(1px 1px at 100px 150px, white, transparent),
+                      radial-gradient(2px 2px at 200px 50px, white, transparent);
+    background-repeat: repeat;
+}
+
+#stars {
+    background-size: 300px 300px;
+    animation: zoom 50s alternate infinite;
+}
+#stars2 {
+    background-size: 500px 500px;
+    animation: zoom 70s alternate-reverse infinite;
+}
+#stars3 {
+    background-size: 700px 700px;
+    animation: zoom 90s alternate infinite;
+}
+
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.5); }
+}
+
+/* オープニング画面 */
+#splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* 他のコンテンツの下に配置 */
-    background: transparent;
-}
-
-#stars {
-    background-image: radial-gradient(circle, #e0e0e0 1px, transparent 1px);
-    background-size: 100px 100px; /* 星の密度を調整 */
-    animation: animateStars 100s linear infinite; /* 動きの速さ */
-}
-
-#stars2 {
-    background-image: radial-gradient(circle, #f0f0f0 1px, transparent 1px);
-    background-size: 150px 150px; /* 星の密度を調整 */
-    animation: animateStars 150s linear infinite; /* 動きの速さ */
-}
-
-#stars3 {
-    background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
-    background-size: 200px 200px; /* 星の密度を調整 */
-    animation: animateStars 200s linear infinite; /* 動きの速さ */
-}
-
-@keyframes animateStars {
-    from {
-        background-position: 0 0;
-    }
-    to {
-        background-position: -10000px -10000px; /* 星が移動する距離 */
-    }
-}
-
-
-/* --- スプラッシュスクリーンのスタイル --- */
-#splash-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #0c0f1a;
+    background-color: var(--bg-color);
+    z-index: 1000;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    opacity: 1;
-    transition: opacity 1s ease-out;
+    text-align: center;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
 }
 
 #splash-screen.hidden {
     opacity: 0;
-    pointer-events: none; /* クリックイベントを無効化 */
+    visibility: hidden;
+    pointer-events: none;
 }
 
-.splash-title {
-    font-size: 3em;
-    color: #ffd700; /* ゴールド色 */
+.splash-content h1 {
+    font-family: var(--font-title);
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transition: opacity 1s ease, transform 1s ease;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
 }
 
-.splash-title.visible {
+#splash-screen .credits p {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    line-height: 1.8;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.splash-content h1.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.credits {
-    font-size: 1.2em;
-    color: #a0a0a0;
-    margin-top: 10px;
-    opacity: 0;
-    transition: opacity 1s ease-out 0.5s; /* 少し遅れて表示 */
-}
+#splash-screen .credits.visible p:nth-child(1) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+#splash-screen .credits.visible p:nth-child(2) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+#splash-screen .credits.visible p:nth-child(3) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
 
-.credits.visible {
+/* メインコンテンツ */
+#app-container {
     opacity: 1;
+    transition: opacity 1s ease-in;
 }
 
-/* --- ヘッダー --- */
-header {
-    background-color: rgba(18, 20, 31, 0.8); /* 半透明の背景 */
-    padding: 15px 0;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px); /* 背景をぼかす */
-    -webkit-backdrop-filter: blur(5px); /* Safari対応 */
-    position: sticky; /* スクロールしても固定 */
-    top: 0;
-    z-index: 10; /* 他の要素より手前に */
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    color: #a0c0ff; /* 明るい青 */
-    text-shadow: 0 0 8px rgba(160, 192, 255, 0.6);
-}
-
-/* --- メインコンテンツ --- */
-main {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 20px auto;
-}
-
-#constellation-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* カードのサイズ調整 */
-    gap: 20px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.05); /* グリッド領域の薄い背景 */
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-}
-
-.constellation-card {
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #c0d0ff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(3px); /* カードの背景もぼかす */
-    -webkit-backdrop-filter: blur(3px);
-}
-
-.constellation-card:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 15px #a0c0ff; /* ホバー時の光るエフェクト */
-    color: #e0f0ff;
-}
-
-/* --- フッター --- */
-footer {
-    text-align: center;
-    padding: 15px;
-    margin-top: 30px;
-    color: #a0a0a0;
-    background-color: rgba(18, 20, 31, 0.8);
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
-
-/* --- モーダルウィンドウ --- */
-#modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001; /* スプラッシュスクリーンより上に */
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(8px); /* モーダル背景を強くぼかす */
-    -webkit-backdrop-filter: blur(8px);
-}
-
-#modal.hidden {
+#app-container.hidden {
     opacity: 0;
     pointer-events: none;
 }
 
-.modal-content {
-    background-color: #1a1a2e; /* モーダルコンテンツの背景色 */
-    border-radius: 20px;
-    padding: 30px;
-    max-width: 90%;
-    max-height: 90%;
-    overflow-y: auto;
-    position: relative;
-    box-shadow: 0 0 30px rgba(0, 200, 255, 0.7); /* 青い光のシャドウ */
-    border: 2px solid #00c8ff; /* 鮮やかなボーダー */
-    transform: scale(0.9);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+header {
+    text-align: center;
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(12, 15, 26, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-#modal:not(.hidden) .modal-content {
-    transform: scale(1);
+header h1 {
+    font-family: var(--font-title);
+    color: var(--highlight-color);
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+    text-shadow: 0 0 8px rgba(160, 192, 255, 0.6);
+}
+
+header p {
+    color: #a0a0a0;
+}
+
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.constellation-card {
+    background-color: var(--card-color);
+    border: 1px solid rgba(160, 192, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.constellation-card:hover {
+    background-color: rgba(160, 192, 255, 0.2);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 20px rgba(160, 192, 255, 0.5);
+}
+
+.app-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    border-top: 1px solid rgba(160, 192, 255, 0.2);
+}
+
+.app-footer p {
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    line-height: 1.7;
+}
+
+/* モーダル */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1001;
     opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s, visibility 0.3s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    border: 1px solid var(--highlight-color);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 0 30px rgba(160, 192, 255, 0.5);
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+    transform: scale(1);
 }
 
 .close-button {
     position: absolute;
     top: 15px;
     right: 25px;
-    color: #00c8ff; /* 閉じるボタンの色 */
-    font-size: 2.5em;
-    font-weight: bold;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2.5rem;
     cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: #ff5555; /* ホバーで赤色に */
 }
 
 .modal-body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 .constellation-image {
-    max-width: 100%;
-    height: auto;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
     border-radius: 10px;
-    border: 3px solid #00c8ff; /* 画像のボーダーも派手に */
-    box-shadow: 0 0 15px rgba(0, 200, 255, 0.5);
-}
-
-.modal-info {
-    text-align: center;
-    line-height: 1.6;
+    border: 1px solid var(--highlight-color);
 }
 
 .modal-info h2 {
-    color: #ffd700; /* 星座名の色 */
-    font-size: 2.2em;
+    font-family: var(--font-title);
+    color: var(--accent-color);
+    font-size: 2.2rem;
+}
+
+.en-name {
+    font-style: italic;
+    color: #a0a0a0;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.modal-details p {
+    line-height: 1.8;
     margin-bottom: 10px;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
-.modal-info p {
-    font-size: 1.1em;
-    margin-bottom: 5px;
-}
-
-.modal-info p strong {
-    color: #a0c0ff;
-}
-
-/* レスポンシブデザイン */
-@media (min-width: 768px) {
+/* スマホ用レスポンシブ */
+@media (max-width: 768px) {
     .modal-body {
-        flex-direction: row;
-        text-align: left;
-    }
-    .modal-info {
-        text-align: left;
+        flex-direction: column;
     }
     .constellation-image {
-        max-width: 45%;
-    }
-}
-
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 2em;
-    }
-    .constellation-card {
-        font-size: 1em;
-        padding: 10px;
-    }
-    .modal-content {
-        padding: 20px;
-    }
-    .modal-info h2 {
-        font-size: 1.8em;
-    }
-    .close-button {
-        font-size: 2em;
-        top: 10px;
-        right: 20px;
+        width: 100%;
+        height: auto;
     }
 }
