@@ -139,7 +139,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-/* ▼▼▼ この部分を追加 ▼▼▼ */
 .constellation-image {
     width: 100%;
     height: auto;
@@ -148,7 +147,6 @@ header h1 {
     background-color: #000;
     display: block;
 }
-/* ▲▲▲ ここまで追加 ▲▲▲ */
 
 .modal-details p {
     line-height: 1.8;
