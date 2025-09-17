@@ -60,7 +60,6 @@ header h1 {
     background-color: #2a2f4d;
 }
 
-/* ▼▼▼ この部分を追加 ▼▼▼ */
 .app-footer {
     text-align: center;
     margin-top: 40px;
@@ -73,8 +72,6 @@ header h1 {
     color: #a0a0a0;
     line-height: 1.7;
 }
-/* ▲▲▲ ここまで追加 ▲▲▲ */
-
 
 /* モーダル（ポップアップ）のスタイル */
 .modal-overlay {
@@ -104,6 +101,8 @@ header h1 {
     box-shadow: 0 5px 20px rgba(0,0,0,0.5);
     transform: scale(1);
     transition: transform 0.3s;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modal-overlay.hidden {
@@ -139,6 +138,17 @@ header h1 {
     color: #a0a0a0;
     margin-bottom: 20px;
 }
+
+/* ▼▼▼ この部分を追加 ▼▼▼ */
+.constellation-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #000;
+    display: block;
+}
+/* ▲▲▲ ここまで追加 ▲▲▲ */
 
 .modal-details p {
     line-height: 1.8;
