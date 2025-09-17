@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
 // --- 星座図鑑アプリ本体の制御 ---
 document.addEventListener('DOMContentLoaded', () => {
     // ▼▼▼ UnsplashのAPIキーをここに貼り付け ▼▼▼
-    const UNSPLASH_ACCESS_KEY = 'YOUR_ACCESS_KEY'; 
+    const UNSPLASH_ACCESS_KEY = 'ssgMREBa8nxF6Dty-WDZUAzjP8Zn1BTOqpFLa4F57i8'; 
 
     // ▼▼▼ 全88星座のデータ ▼▼▼
     const constellations = [
