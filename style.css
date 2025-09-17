@@ -140,14 +140,11 @@ main {
     cursor: pointer;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    
-    /* ▼▼▼ アニメーション用のスタイルを追加 ▼▼▼ */
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s ease, transform 0.5s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ▼▼▼ カードが表示されたときのスタイルを追加 ▼▼▼ */
 .constellation-card.visible {
     opacity: 1;
     transform: translateY(0);
@@ -155,7 +152,7 @@ main {
 
 .constellation-card:hover {
     background-color: rgba(160, 192, 255, 0.2);
-    transform: translateY(-5px) scale(1.05); /* ホバー時の動きを元のままに */
+    transform: translateY(-5px) scale(1.05);
     box-shadow: 0 0 20px rgba(160, 192, 255, 0.5);
 }
 
