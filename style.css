@@ -9,10 +9,39 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-jp); overflow: hidden; }
-#stars, #stars2, #stars3 { position: fixed; top: 0; left: 0; width: 200%; height: 200%; z-index: -1; background-image: radial-gradient(1px 1px at 50px 50px, white, transparent), radial-gradient(1px 1px at 100px 150px, white, transparent), radial-gradient(2px 2px at 200px 50px, white, transparent); background-repeat: repeat; }
-#stars { background-size: 300px 300px; animation: zoom 50s alternate infinite; }
-#stars2 { background-size: 500px 500px; animation: zoom 70s alternate-reverse infinite; }
-#stars3 { background-size: 700px 700px; animation: zoom 90s alternate infinite; }
+
+/* ▼▼▼ ここから背景アニメーションの変更点 ▼▼▼ */
+#stars, #stars2, #stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+    /* 変更点: 星のサイズを大きく (1px -> 2px, 2px -> 3px) */
+    background-image: radial-gradient(2px 2px at 50px 50px, white, transparent),
+                      radial-gradient(2px 2px at 100px 150px, white, transparent),
+                      radial-gradient(3px 3px at 200px 50px, white, transparent);
+    background-repeat: repeat;
+}
+
+#stars {
+    /* 変更点: 密度を高く(300px -> 150px)、速度を速く(50s -> 30s) */
+    background-size: 150px 150px;
+    animation: zoom 30s alternate infinite;
+}
+#stars2 {
+    /* 変更点: 密度を高く(500px -> 250px)、速度を速く(70s -> 45s) */
+    background-size: 250px 250px;
+    animation: zoom 45s alternate-reverse infinite;
+}
+#stars3 {
+    /* 変更点: 密度を高く(700px -> 350px)、速度を速く(90s -> 60s) */
+    background-size: 350px 350px;
+    animation: zoom 60s alternate infinite;
+}
+/* ▲▲▲ ここまで背景アニメーションの変更点 ▲▲▲ */
+
 @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.5); } }
 
 .shooting-star { position: fixed; top: -10px; left: 50%; width: 2px; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6)); transform-origin: top left; transform: rotate(-45deg); animation: shooting-star-animation 10s ease-in-out infinite; z-index: -1; }
@@ -47,7 +76,7 @@ main { padding: 20px; max-width: 1200px; margin: 0 auto; }
 .modal-content { background-color: var(--bg-color); border: 1px solid var(--highlight-color); padding: 30px; border-radius: 15px; max-width: 600px; width: 100%; position: relative; box-shadow: 0 0 30px rgba(160, 192, 255, 0.5); max-height: 90vh; overflow-y: auto; transform: scale(0.95); transition: transform 0.3s; }
 .modal-overlay:not(.hidden) .modal-content { transform: scale(1); }
 .close-button { position: absolute; top: 15px; right: 25px; background: none; border: none; color: var(--text-color); font-size: 2.5rem; cursor: pointer; }
-.modal-body { display: block; } /* flexからblockに変更 */
+.modal-body { display: block; }
 .modal-info h2 { font-family: var(--font-title); color: var(--accent-color); font-size: 2.2rem; }
 .en-name { font-style: italic; color: #a0a0a0; margin-bottom: 20px; display: block; }
 #modal-description-container h4 { color: var(--highlight-color); margin-top: 1em; margin-bottom: 0.5em; border-bottom: 1px solid rgba(160, 192, 255, 0.3); padding-bottom: 0.3em; }
